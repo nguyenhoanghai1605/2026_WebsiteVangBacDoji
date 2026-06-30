@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gold and Silver Prices Signage</title>
+<style>
+  /* Reset and base styles */
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ensure no scrollbars on the main page */
+  }
+
+  /* 
+   * Base wrapper for 27-inch portrait (1080x1920 resolution, 9:16 aspect ratio) 
+   * We will scale this wrapper to fit any smaller screen perfectly.
+   */
+  #scale-wrapper {
+    width: 1080px;
+    height: 1920px;
+    position: absolute;
+    transform-origin: top left;
+    background-color: #000;
+    overflow: hidden;
+  }
+
+  /* 
+   * The Layout Split
+   * Top 73%, Separator 3.5%, Bottom 23.5% 
+   */
+  .top-container {
+    width: 100%;
+    height: 73%; 
+    overflow: hidden; /* Hide anything outside */
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  .separator {
+    width: 100%;
+    height: 3.5%; 
+    /* Elegant DOJI-inspired Ruby Red and Gold gradient */
+    background: linear-gradient(90deg, #600000 0%, #D4AF37 50%, #600000 100%);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.8);
+    position: relative;
+    z-index: 10;
+  }
+
+  .bottom-container {
+    width: 100%;
+    height: 23.5%; 
+    overflow: hidden; 
+    position: relative;
+    box-sizing: border-box;
+  }
+
+
+
+  /* 
+   * Iframe settings
+   * We force them to be 1080x1920 so they render their portrait versions natively
+   */
+  iframe {
+    width: 1080px;
+    height: 1920px;
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  /* 
+   * Adjustments to fix white space and margins inside the iframes.
+   * You can tweak transform: scale() and translate() here to perfectly crop the content.
+   */
+  .gold-iframe {
+    transform: scale(1); 
+    transform-origin: top center;
+    margin-top: -15px; 
+    margin-left: 0; 
+  }
+
+  .silver-iframe {
+    transform: scale(1.02);
+    transform-origin: top center;
+    margin-top: 5px; 
+  }
+
+  /* Image to fill the entire bottom area */
+  .demo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Đảm bảo hình ảnh lấp đầy toàn bộ khung mà không bị méo */
+    display: block;
+  }
+
+</style>
+</head>
+<body>
+
+  <!-- 1920x1080 Wrapper that scales to fit the screen -->
+  <div id="scale-wrapper">
+    
+    <!-- Top Container: Gold Price -->
+    <div class="top-container">
+      <!-- <iframe class="gold-iframe" src="https://update.giavang.doji.vn/system/doji_41177/41177" scrolling="no"></iframe> -->
+      <iframe class="gold-iframe" src="https://banggialed.doji.vn/" scrolling="no"></iframe>
+    </div>
+
+    <!-- Separator Line -->
+    <div class="separator"></div>
+
+    <!-- Bottom Container: Banner Image -->
+    <div class="bottom-container">
+      <img class="demo-image" src="https://cdn.hstatic.net/files/1000381168/file/slide_1_5b586082d3b443e98028062beab35e59_master.png" alt="Demo Boundary Image">
+    </div>
+
+  </div>
+
+<script>
+  // Script to auto-scale the 1080x1920 wrapper to fit any screen size (responsive)
+  function resizeWrapper() {
+    const wrapper = document.getElementById('scale-wrapper');
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+    
+    // Calculate scale to fit the 1080x1920 aspect ratio within the window
+    const scaleX = windowWidth / 1080;
+    const scaleY = windowHeight / 1920;
+    const scale = Math.min(scaleX, scaleY);
+    
+    // Apply the scale
+    wrapper.style.transform = `scale(${scale})`;
+    
+    // Center the wrapper horizontally and vertically
+    const offsetX = (windowWidth - 1080 * scale) / 2;
+    const offsetY = (windowHeight - 1920 * scale) / 2;
+    
+    wrapper.style.left = `${offsetX}px`;
+    wrapper.style.top = `${offsetY}px`;
+  }
+
+  // Run on load and resize
+  window.addEventListener('resize', resizeWrapper);
+  resizeWrapper();
+</script>
+
+</body>
+</html>
