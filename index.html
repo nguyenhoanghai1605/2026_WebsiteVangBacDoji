@@ -34,11 +34,11 @@
 
   /* 
    * The Layout Split
-   * Top 71.5%, Bottom 28.5% 
+   * Top 78%, Bottom 22% 
    */
   .top-container {
     width: 100%;
-    height: 71.5%; 
+    height: 78%; 
     overflow: hidden; /* Hide anything outside */
     position: relative;
     box-sizing: border-box;
@@ -56,7 +56,7 @@
 
   .bottom-container {
     width: 100%;
-    height: 28.5%; 
+    height: 22%; 
     overflow: hidden; 
     position: relative;
     box-sizing: border-box;
@@ -67,6 +67,7 @@
   /* 
    * Iframe settings
    * We force them to be 1080x1920 so they render their portrait versions natively
+   * This prevents the DOJI site from triggering a mobile responsive layout.
    */
   iframe {
     width: 1080px;
@@ -79,13 +80,17 @@
 
   /* 
    * Adjustments to fix white space and margins inside the iframes.
-   * You can tweak transform: scale() and translate() here to perfectly crop the content.
+   * By rendering the iframe at a larger size (1440x2000) and scaling it down by 0.75,
+   * we force the DOJI page to use a wider layout, which prevents the rows from 
+   * wrapping or taking up too much vertical space. This perfectly fits the 1080px 
+   * width (1440 * 0.75 = 1080) and 1500px height (78% of 1920 = 1497).
    */
   .gold-iframe {
-    transform: scale(1); 
-    transform-origin: top center;
-    margin-top: -15px; 
-    margin-left: 0; 
+    width: 1440px !important;
+    height: 2000px !important;
+    transform: scale(0.75); 
+    transform-origin: top left;
+    margin: 0; 
   }
 
   .silver-iframe {
