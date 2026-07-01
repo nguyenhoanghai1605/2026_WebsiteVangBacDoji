@@ -125,7 +125,7 @@
 
     <!-- Bottom Container: Banner Video -->
     <div class="bottom-container">
-      <video class="demo-video" src="https://cdn.hstatic.net/files/1000381168/file/clip_2160_x_1240.mp4" autoplay loop muted playsinline></video>
+      <video id="banner-video" class="demo-video" src="https://cdn.hstatic.net/files/1000381168/file/clip_2160_x_1240.mp4" autoplay muted playsinline></video>
     </div>
 
   </div>
@@ -156,6 +156,23 @@
   // Run on load and resize
   window.addEventListener('resize', resizeWrapper);
   resizeWrapper();
+
+  // Video Playlist Logic
+  const videos = [
+    "https://cdn.hstatic.net/files/1000381168/file/clip_2160_x_1240.mp4",
+    "https://cdn.hstatic.net/files/1000381168/file/tgkc_clip_toa_sang.mp4",
+    "https://cdn.hstatic.net/files/1000381168/file/tgkc_clip_vang_ep_vi.mp4"
+  ];
+  let currentVideoIndex = 0;
+  const videoPlayer = document.getElementById('banner-video');
+
+  if (videoPlayer) {
+    videoPlayer.addEventListener('ended', () => {
+      currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+      videoPlayer.src = videos[currentVideoIndex];
+      videoPlayer.play().catch(e => console.error("Video play failed:", e));
+    });
+  }
 </script>
 
 </body>
